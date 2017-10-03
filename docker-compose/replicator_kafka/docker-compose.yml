@@ -1,0 +1,23 @@
+version: '3'
+services:
+  replicator:
+    image: "replicator"
+    volumes:
+      - "./replicator.conf:/replicator/replicator.conf:ro"
+      - "./log4j.properties:/replicator/log4j.properties:ro"
+  kafka:
+    image: "wurstmeister/kafka"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_CREATE_TOPICS: "replicator_test_kafka:1:1,replicator_validation:1:1"
+  zookeeper:
+    image: "zookeeper"
+  mysql:
+    image: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysqlPass"
+    volumes:
+      - "./my.cnf:/etc/my.cnf:ro"
+      - "./mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
+  graphite:
+    image: "hopsoft/graphite-statsd"
