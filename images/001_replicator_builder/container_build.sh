@@ -1,1 +1,1 @@
-sudo docker build . -t replicator-builder-image
+docker build . -t replicator-builder-image
