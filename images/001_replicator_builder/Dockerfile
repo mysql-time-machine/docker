@@ -21,4 +21,5 @@ ADD settings/settings.xml /usr/share/apache-maven/conf/settings.xml
 
 ADD run.sh /app/run.sh
 
-CMD ["/bin/bash", "-c", "/app/run.sh"]
+ENTRYPOINT ["/app/run.sh"]
+
