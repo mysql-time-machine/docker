@@ -3,7 +3,7 @@ services:
   replicator:
     image: "replicator-runner"
   mysql:
-    image: "mysql:5.7.20"
+    image: "mysql:5.6.38"
     environment:
       MYSQL_ROOT_PASSWORD: "mysqlPass"
     volumes:
@@ -21,3 +21,8 @@ services:
     ports:
         - "80:80"
         - "8125:8125"
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "8000:8000"
+

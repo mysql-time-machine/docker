@@ -5,7 +5,7 @@ cd /replicator
 
 mvn package
 
-cp /replicator/target/mysql-replicator-0.14.2.jar /output/mysql-replicator.jar
+cp /replicator/target/mysql-replicator-0.15.0-alpha.jar /output/mysql-replicator.jar
 
 # TODO:
 #   - run in the same pod as mysql
