@@ -1,1 +1,1 @@
-sudo docker build . -t replicator-runner
+docker build . -t replicator-runner

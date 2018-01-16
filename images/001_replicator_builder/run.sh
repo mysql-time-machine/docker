@@ -17,10 +17,3 @@ mvn package
 eval $(printf 'VERSION=${project.version}\n0\n' | mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate | grep '^VERSION')
 
 cp "/replicator/target/mysql-replicator-$VERSION.jar" /output/mysql-replicator.jar
-
-# TODO:
-#   - run in the same pod as mysql
-#   - run insert_update_random_data.pl
-#   - run OR > file
-#   - run BC > file
-#   - prove -v t/compare.t
