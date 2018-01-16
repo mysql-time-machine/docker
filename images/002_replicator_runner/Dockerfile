@@ -33,6 +33,7 @@ ADD ./input/replicator/replicator-conf.yaml /replicator/replicator-conf.yaml
 
 ADD ./input/replicator/run_stdout /replicator/run_stdout
 ADD ./input/replicator/run_kafka /replicator/run_kafka
+ADD ./input/replicator/run_hbase /replicator/run_hbase
 ADD ./input/replicator/print_json /replicator/print_json
 ADD ./input/replicator/random_mysql_ops /replicator/random_mysql_ops
 ADD ./input/replicator/read_kafka /replicator/read_kafka

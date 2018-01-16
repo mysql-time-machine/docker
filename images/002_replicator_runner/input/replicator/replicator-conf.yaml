@@ -20,12 +20,11 @@ kafka:
     apply_begin_event: true
     apply_commit_event: true
 
-validation:
-    broker: "kafka:9092"
-    topic: replicator_validation
-    tag: test_kafka
-    source_domain: test
-    target_domain: kafka-ams4
+hbase:
+    namespace: "test"
+    zookeeper_quorum: ["hbase"]
+    hive_imports:
+        tables: ['test1','test2','test3']
 
 mysql_failover:
     pgtid:
