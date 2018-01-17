@@ -54,6 +54,16 @@ mysql container is visible under the hostname 'mysql':
     +--------------------+
     6 rows in set (0.00 sec)
 
+INTEGRATION TESTS:
+=================
+There is 1st integration test present.
+It is located in test_1 directory
+it can be run with command:
+```
+./run_test test_1
+```
+It is draft-quality so far but introduces some ideas which can be used for future tests
+
 GRAPHITE:
 =========
 Access in browser at http://localhost/dashboard/
