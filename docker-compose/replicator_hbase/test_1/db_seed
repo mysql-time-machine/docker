@@ -1,0 +1,53 @@
+$TABLE    = 'hb_test_1';
+
+sub insert_random_records {
+
+    my $updates = 5;
+    my $dbh = DBI->connect($data_source, $username, $pwd)
+              or die $DBI::errstr;
+
+    my @chars = ("A".."Z", "a".."z", " ");
+    my @values = ();
+    for (1 .. $updates) {
+        my $string; # pk_part1
+        my $number; # pk_part2
+        my $int;    # randomInt
+        my $text;   # randomVarchar
+        $string .= $chars[rand @chars] for 1..5;
+        $number  = int(5000000 * rand);
+        $int     = int(1000000 * rand);
+        $text   .= $chars[rand @chars] for 1..20;
+        push @values , [$string, $number, $int, $text];
+    }
+
+    my $columns = "(pk_part_1, pk_part_2, randomInt, randomVarchar)";
+    my $form_val = sub {
+        my $entry = shift;
+       my $res = "(";
+       $res .= join(",", map {"\'" . $_ . "\'"} @$entry);
+       $res .= ")\n";
+       return $res;
+    };
+
+    my $v = shift @values;
+    $dbh->begin_work;
+    $dbh->do("INSERT INTO $TABLE $columns VALUES ".$form_val->($v));
+    my $where  = "where pk_part_1 = '".$v->[0]."' and pk_part_2 = '".$v->[1]."'";
+    my $current = shift @values;
+    $dbh->do("UPDATE $TABLE set randomInt = ".$current->[2].", randomVarchar = '".$current->[3]."' $where");
+    $current = shift @values;
+    $dbh->do("UPDATE $TABLE set randomInt = ".$current->[2].", randomVarchar = '".$current->[3]."' $where");
+    $dbh->do("DELETE FROM $TABLE $where");
+    $current = shift @values;
+    $current->[0] = $v->[0];
+    $current->[1] = $v->[1];
+    $dbh->do("INSERT INTO $TABLE $columns VALUES ".$form_val->($current));
+    $current = shift @values;
+    $dbh->do("UPDATE $TABLE set randomInt = ".$current->[2].", randomVarchar = '".$current->[3]."' $where");
+    $dbh->commit;
+}
+
+create_tables();
+insert_random_records();
+write_pgtid();
+

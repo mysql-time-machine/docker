@@ -1,0 +1,25 @@
+version: '3'
+services:
+  replicator:
+    image: "replicator-runner"
+  mysql:
+    image: "mysql:5.6.38"
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysqlPass"
+    volumes:
+      - "./my.cnf:/etc/mysql/conf.d/my.cnf:ro"
+      - "./mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
+  zookeeper:
+    image: "zookeeper"
+  hbase:
+    image: "harisekhon/hbase"
+  graphite:
+    image: "hopsoft/graphite-statsd"
+    ports:
+        - "80:80"
+        - "8125:8125"
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "8000:8000"
+
