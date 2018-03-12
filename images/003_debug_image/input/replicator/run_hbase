@@ -1,0 +1,5 @@
+java -jar ./mysql-replicator.jar \
+    --applier hbase \
+    --schema test \
+    --binlog-filename binlog.000001 \
+    --config-path  replicator-conf.yaml

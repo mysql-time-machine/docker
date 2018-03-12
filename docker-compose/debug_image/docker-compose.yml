@@ -11,8 +11,11 @@ services:
       - "./mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
   zookeeper:
     image: "zookeeper"
-  hbase:
-    image: "harisekhon/hbase"
+  kafka:
+    image: "wurstmeister/kafka"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_CREATE_TOPICS: "replicator_test_kafka:1:1,replicator_validation:1:1"
   graphite:
     image: "hopsoft/graphite-statsd"
     ports:
