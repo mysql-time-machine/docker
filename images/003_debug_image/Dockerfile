@@ -39,6 +39,8 @@ ADD ./input/replicator/print_json /replicator/print_json
 ADD ./input/replicator/random_mysql_ops /replicator/random_mysql_ops
 ADD ./input/replicator/read_kafka /replicator/read_kafka
 
+ADD ./input/replicator/env-repl /replicator/env-repl
+
 ADD ./input/util /replicator/util
 
 ADD run.sh /app/run.sh

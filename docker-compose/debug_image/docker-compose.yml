@@ -11,6 +11,8 @@ services:
       - "./mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
   zookeeper:
     image: "zookeeper"
+  hbase:
+    image: "harisekhon/hbase"
   kafka:
     image: "wurstmeister/kafka"
     environment:
