@@ -1,5 +1,4 @@
 java -jar $REPLICATOR_PATH/mysql-replicator.jar \
     --applier STDOUT \
     --schema test \
-    --binlog-filename binlog.000001 \
     --config-path  $REPLICATOR_PATH/replicator-conf.yaml

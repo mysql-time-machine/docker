@@ -10,19 +10,13 @@ use Data::UUID;
 use Data::Dumper;
 
 my $db       = 'test';
-my $db_meta  = 'pgtid_meta';
 my $host     = 'mysql';
 my $TABLE    = 'sometable';
 
 my $data_source = "dbi:mysql:$db;host=$host";
-my $data_source_active_schema = "dbi:mysql:$db" . "_active_schema;host=$host";
-my $data_source_meta = "dbi:mysql:$db_meta;host=$host";
+
 my $username = 'root';
-
-my $pwd = "mysqlPass";
-
-# main
-create_tables();
+my $pwd      = "mysqlPass";
 
 my $BATCHES = 1000;
 
@@ -30,38 +24,6 @@ my $batch_no = 0;
 
 while ($batch_no++ <= $BATCHES) {
     insert_random_records(1000);
-    write_pgtid();
-}
-
-sub create_tables {
-
-    my $dbh_test = DBI->connect($data_source, $username, $pwd)
-              or die $DBI::errstr;
-
-    my $dbh_test_active_schema = DBI->connect($data_source, $username, $pwd)
-              or die $DBI::errstr;
-
-    my $sql = <<EOC;
-     CREATE TABLE IF NOT EXISTS
-
-        sometable (
-
-          pk_part_1         varchar(5) NOT NULL DEFAULT '',
-          pk_part_2         int(11)    NOT NULL DEFAULT 0,
-          randomInt         int(11)             DEFAULT NULL,
-          randomVarchar     varchar(32)         DEFAULT NULL,
-          PRIMARY KEY       (pk_part_1,pk_part_2),
-          KEY randomVarchar (randomVarchar),
-          KEY randomInt     (randomInt)
-
-        ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-EOC
-
-    my $ok  = $dbh_test->do("reset master");
-
-    my $ok1 = $dbh_test->do($sql);
-    my $ok2 = $dbh_test_active_schema->do($sql);
-
 }
 
 sub insert_random_records {
@@ -113,29 +75,3 @@ sub insert_random_records {
 
 }
 
-sub write_pgtid {
-
-    my $ug = Data::UUID->new;
-
-    my $uuid = $ug->create();
-
-    my $str = $ug->to_string($uuid);
-
-    $str=~s/-//g;
-
-    my @chars = (split(//,$str));
-
-    my $key = join('',@chars[0..7]) . ':' . join('', @chars[8..23]) . ':' . join('', @chars[24..31]);
-
-
-    my $sql_pgtid = 'drop view if exists `pgtid_meta`.`_pseudo_gtid_hint__asc:';
-    $sql_pgtid .= $key;
-    $sql_pgtid .= '`';
-
-    my $dbh_meta = DBI->connect($data_source_meta, $username, $pwd)
-              or die $DBI::errstr;
-
-    print $sql_pgtid;
-
-    my $result = $dbh_meta->do($sql_pgtid);
-}
