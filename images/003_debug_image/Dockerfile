@@ -29,10 +29,20 @@ RUN apt-get install -y \
       python-click \
       jq
 
-# Replicator
-ADD ./input/replicator/mysql-replicator.jar /replicator/mysql-replicator.jar
-ADD ./input/replicator/log4j.properties     /replicator/log4j.properties
-ADD ./input/replicator/replicator-conf.yaml /replicator/replicator-conf.yaml
+# Replicator 0.14 branch
+ADD ./input/replicator/mysql-replicator.jar            /replicator/mysql-replicator.jar
+
+# Replicator 0.16 branch
+ADD ./input/replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip
+
+# Logging
+ADD ./input/replicator/log4j.properties                /replicator/log4j.properties
+
+# Config 0.14
+ADD ./input/replicator/replicator-conf.yaml            /replicator/replicator-conf.yaml
+
+# Config 0.16
+ADD ./input/replicator/replicator-conf-v016.yaml       /replicator/replicator-conf-v016.yaml
 
 # Replicator util scripts
 ADD ./input/replicator/run_stdout                      /replicator/bin/run_stdout

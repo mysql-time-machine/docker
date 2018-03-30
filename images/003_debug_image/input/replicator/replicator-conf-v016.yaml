@@ -1,0 +1,26 @@
+mysql:
+  hostname: 'mysql'
+  port: 3306
+  schema: 'test'
+  username: 'root'
+  password: 'mysqlPass'
+
+kafka:
+  bootstrap.servers: 'kafka:9092'
+  group.id: 'replicator_test'
+  topic: 'replicator_test_kafka'
+
+
+zookeeper:
+  leadership.path: '/hbase/replicator/test/leadership'
+  connection.string: 'zookeeper:2181'
+
+coordinator.type: 'ZOOKEEPER'
+supplier.type: 'BINLOG'
+augmenter.type: 'PSEUDO_GTID'
+seeker.type: 'KAFKA'
+applier.type: 'KAFKA'
+
+checkpoint.storer:
+  type: 'COORDINATOR'
+  path: '/hbase/replicator/test/checkpoint'
