@@ -17,7 +17,7 @@ services:
     image: "wurstmeister/kafka"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_CREATE_TOPICS: "replicator_test_kafka:1:1,replicator_validation:1:1"
+      KAFKA_CREATE_TOPICS: "replicator_test_kafka:5:1,replicator_validation:1:1"
   graphite:
     image: "hopsoft/graphite-statsd"
     ports:

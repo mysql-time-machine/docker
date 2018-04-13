@@ -30,7 +30,9 @@ RUN apt-get install -y \
       jq
 
 # Replicator 0.14 branch
+
 ADD ./input/replicator/mysql-replicator.jar            /replicator/mysql-replicator.jar
+ADD ./input/replicator/mysql-replicator-0.14.5.jar     /replicator/mysql-replicator-0.14.5.jar
 
 # Replicator 0.16 branch
 ADD ./input/replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip
@@ -48,6 +50,7 @@ ADD ./input/replicator/replicator-conf-v016.yaml       /replicator/replicator-co
 ADD ./input/replicator/run_stdout                      /replicator/bin/run_stdout
 ADD ./input/replicator/run_stdout_from_pgtid           /replicator/bin/run_stdout_from_pgtid
 ADD ./input/replicator/run_kafka                       /replicator/bin/run_kafka
+ADD ./input/replicator/run_016                         /replicator/bin/run_016
 ADD ./input/replicator/run_hbase                       /replicator/bin/run_hbase
 ADD ./input/replicator/print_json                      /replicator/bin/print_json
 
