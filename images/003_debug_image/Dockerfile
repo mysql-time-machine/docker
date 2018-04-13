@@ -30,9 +30,10 @@ RUN apt-get install -y \
       jq
 
 # Replicator 0.14 branch
-
-ADD ./input/replicator/mysql-replicator.jar            /replicator/mysql-replicator.jar
 ADD ./input/replicator/mysql-replicator-0.14.5.jar     /replicator/mysql-replicator-0.14.5.jar
+
+# Replicator 0.15 branch
+ADD ./input/replicator/mysql-replicator-0.15.0-alpha-SNAPSHOT.jar     /replicator/mysql-replicator-0.15.0-alpha-SNAPSHOT.jar
 
 # Replicator 0.16 branch
 ADD ./input/replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip
@@ -40,7 +41,7 @@ ADD ./input/replicator/mysql-replicator-0.16.0-alpha-1-SNAPSHOT-distribution.zip
 # Logging
 ADD ./input/replicator/log4j.properties                /replicator/log4j.properties
 
-# Config 0.14
+# Config 0.14 & 0.15
 ADD ./input/replicator/replicator-conf.yaml            /replicator/replicator-conf.yaml
 
 # Config 0.16
@@ -50,9 +51,17 @@ ADD ./input/replicator/replicator-conf-v016.yaml       /replicator/replicator-co
 ADD ./input/replicator/run_stdout                      /replicator/bin/run_stdout
 ADD ./input/replicator/run_stdout_from_pgtid           /replicator/bin/run_stdout_from_pgtid
 ADD ./input/replicator/run_kafka                       /replicator/bin/run_kafka
+ADD ./input/replicator/run_kafka_015                   /replicator/bin/run_kafka_015
 ADD ./input/replicator/run_016                         /replicator/bin/run_016
 ADD ./input/replicator/run_hbase                       /replicator/bin/run_hbase
 ADD ./input/replicator/print_json                      /replicator/bin/print_json
+
+# More util scripts
+ADD ./input/replicator/00_setup                        /replicator/00_setup
+ADD ./input/replicator/01_seed                         /replicator/01_seed
+ADD ./input/replicator/02_run_kafka_015                /replicator/02_run_kafka_015
+ADD ./input/replicator/02_run_016                      /replicator/02_run_016
+ADD ./input/replicator/03_read_kafka                   /replicator/03_read_kafka
 
 # MySQL init scripts
 ADD ./input/replicator/random_mysql_ops                /replicator/bin/mysql-init/random_mysql_ops

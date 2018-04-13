@@ -1,0 +1,6 @@
+java -jar $REPLICATOR_PATH/mysql-replicator-0.15.0-alpha-SNAPSHOT.jar \
+    --parser bc \
+    --applier kafka \
+    --schema test \
+    --binlog-filename binlog.000001 \
+    --config-path  $REPLICATOR_PATH/replicator-conf.yaml
