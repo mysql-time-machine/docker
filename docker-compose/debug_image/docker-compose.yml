@@ -23,8 +23,3 @@ services:
     ports:
         - "80:80"
         - "8125:8125"
-  grafana:
-    image: "grafana/grafana"
-    ports:
-      - "8000:8000"
-

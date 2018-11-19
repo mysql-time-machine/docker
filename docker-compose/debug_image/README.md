@@ -2,11 +2,19 @@ USAGE:
 ======
 
 1. ./run_all
-2. ./attach_to_replicator
-3. cd /replicator
-4. ./random_mysql_ops
-5. ./run_kafka
-6. ./read_kafka
+
+2. ./init_hbase
+
+3. ./attach_to_replicator
+
+4. cd /replicator
+
+5. ./00_setup
+
+6. ./01_seed_mysql
+
+7. ./02_run_016
+
 
 MYSQL CONFIG
 ============
@@ -52,6 +60,6 @@ GRAPHITE:
 =========
 Access in browser at http://localhost/dashboard/
 
-KAFKA, ZOOKEEPER
-================
+KAFKA, HBASE, ZOOKEEPER
+=======================
 Should just be there and work.

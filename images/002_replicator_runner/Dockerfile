@@ -1,16 +1,11 @@
-FROM debian:jessie
+FROM ubuntu:xenial
 
 MAINTAINER Bosko Devetak <bosko.devetak@booking.com>
 
-ENV https_proxy=http://webproxy.corp.booking.com:3128
-ENV http_proxy=http://webproxy.corp.booking.com:3128
-
-ADD apt.conf /etc/apt/apt.conf
 RUN apt-get update
-
-RUN echo 'deb http://http.debian.net/debian jessie-backports main' >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install -y -t jessie-backports openjdk-8-jdk
+RUN apt-get -y  update \ 
+	&& apt-get -y install openjdk-8-jdk \
+	&& update-alternatives --config java
 
 RUN apt-get install -y \
       vim-nox \
@@ -27,7 +22,7 @@ RUN apt-get install -y \
       python-click \
       jq
 
-ADD ./input/replicator/mysql-replicator.jar /replicator/mysql-replicator.jar
+#ADD ./input/replicator/mysql-replicator.jar /replicator/mysql-replicator.jar
 ADD ./input/replicator/log4j.properties     /replicator/log4j.properties
 ADD ./input/replicator/replicator-conf.yaml /replicator/replicator-conf.yaml
 

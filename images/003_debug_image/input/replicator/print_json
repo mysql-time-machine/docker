@@ -1,4 +1,0 @@
-#!/bin/bash
-
-./run_stdout |  perl -e 'STDOUT->autoflush(1); use feature "say"; use JSON qw(decode_json encode_json); my $cnt = 0; while(<>) { eval { my $x = decode_json($_); delete $x->{rowUUID}; delete $x->{transactionUUID}; say encode_json($x)  ; $cnt++; 1; } or do { }; }'
-

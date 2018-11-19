@@ -1,2 +1,0 @@
-java -jar $REPLICATOR_PATH/mysql-replicator-0.16.0-alpha-1-SNAPSHOT/mysql-replicator-0.16.0-alpha-1-SNAPSHOT.jar \
-    --config-file  $REPLICATOR_PATH/replicator-conf-v016.yaml

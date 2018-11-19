@@ -1,4 +1,0 @@
-java -jar $REPLICATOR_PATH/mysql-replicator.jar \
-    --applier STDOUT \
-    --schema test \
-    --config-path  $REPLICATOR_PATH/replicator-conf.yaml
