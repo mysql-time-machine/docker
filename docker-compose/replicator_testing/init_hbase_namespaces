@@ -1,0 +1,6 @@
+#hbase preparation                                                                                                                                        
+hbase=`docker ps | grep hbase  | cut -c1-12`
+
+docker exec $hbase sh -c "echo -e \"create_namespace 'replicator_test'\" | /hbase/bin/hbase shell -n"                                               
+docker exec $hbase sh -c "echo -e \"create_namespace 'schema_history'\" | /hbase/bin/hbase shell -n"
+ 

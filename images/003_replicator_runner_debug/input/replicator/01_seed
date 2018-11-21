@@ -1,3 +1,0 @@
-./bin/mysql-init/init_tables_and_reset_master
-./bin/mysql-init/init_pgtid_and_heartbeat_events
-./bin/mysql-init/random_mysql_ops
