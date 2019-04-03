@@ -1,2 +1,4 @@
-java -jar $REPLICATOR_PATH/mysql-replicator-0.16.0-beta-SNAPSHOT/mysql-replicator-0.16.0-beta-SNAPSHOT.jar \
+java -Xdebug \
+ -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
+ -jar $REPLICATOR_PATH/mysql-replicator-0.16.0-rc1-SNAPSHOT/mysql-replicator-0.16.0-rc1-SNAPSHOT.jar \
     --config-file  $REPLICATOR_PATH/replicator-conf-v016.yaml

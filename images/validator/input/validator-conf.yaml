@@ -1,0 +1,36 @@
+data_sources:
+    - name: hbase
+      type: hbase
+      configuration:
+          hbase.zookeeper.quorum: hbase
+
+    - name: 'test_mysql'
+      type: mysql
+      configuration:
+          username: replicator
+          password: mysqlPass
+          host: mysql
+          schema: replicator
+          port: 3306
+
+task_supplier:
+    type: kafka
+    configuration:
+        topic: replicator_validation
+        group.id: validators
+        bootstrap.servers: "zookeeper:2181"
+
+reporter:
+    type: graphite
+    configuration:
+        host: 'graphite'
+        port: 2003
+        namespace: general.validator
+        period: 1
+
+retry_policy:
+    delay:
+        - 1000
+        - 4000
+        - 20000
+        - 35000

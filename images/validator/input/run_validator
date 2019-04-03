@@ -1,0 +1,4 @@
+java -Xdebug \
+	-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
+	-jar $VALIDATOR_PATH/service-0.0.1.jar \
+	--config-file $VALIDATOR_PATH/valifator-conf.yaml

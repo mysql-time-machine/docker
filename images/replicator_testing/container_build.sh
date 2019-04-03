@@ -1,1 +1,1 @@
-docker build . -t replicator-runner --network host
+docker build . -t replicator-runner
