@@ -24,7 +24,7 @@ RUN apt-get install -y \
       python-click \
       jq
 
-ADD ./input/replicator/mysql-replicator-0.16.0-beta-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-beta-SNAPSHOT-distribution.zip
+ADD ./input/replicator/mysql-replicator-0.16.0-rc1-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-rc1-SNAPSHOT-distribution.zip
 
 # Logging
 ADD ./input/replicator/log4j.properties                /replicator/log4j.properties
@@ -48,9 +48,6 @@ ADD ./input/replicator/init_tables_and_reset_master    /replicator/bin/mysql-ini
 
 # Kafka util scripts
 ADD ./input/replicator/read_kafka /replicator/util/kafka/read_kafka
-
-# Debug env repl
-ADD ./input/replicator/env-repl /replicator/util/repl/env-repl
 
 # Zookeeper util scripts
 ADD ./input/util /replicator/util/zk

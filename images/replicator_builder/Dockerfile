@@ -10,6 +10,7 @@ RUN apt-get install -y \
     git-core \
     maven
 
+ADD ~/.m2/settings.xml /root/.m2/settings.xml
 ADD run.sh /app/run.sh
 
 

@@ -1,4 +1,0 @@
-#!/bin/bash
-#docker exec replicatorhbase_hbase_1 sh -c "echo -e \"create_namespace 'test'\" | /hbase/bin/hbase shell -n"
-#docker exec replicatorhbase_hbase_1 sh -c "echo -e \"create_namespace 'schema_history'\" | /hbase/bin/hbase shell -n"
-docker exec -it `docker ps | grep kafka | cut -c1-12` /bin/bash

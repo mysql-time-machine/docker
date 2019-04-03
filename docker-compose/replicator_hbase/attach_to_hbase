@@ -1,2 +1,0 @@
-#!/bin/bash
-docker exec -it `docker ps | grep hbase | cut -c1-12` /bin/bash

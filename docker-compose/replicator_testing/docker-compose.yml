@@ -7,7 +7,7 @@ services:
         - "5005:5005"
 
   mysql:
-    image: "mysql:5.6.27"
+    image: "mysql:5.7.21"
     environment:
       MYSQL_ROOT_PASSWORD: "mysqlPass"
     volumes:
