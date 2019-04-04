@@ -2,77 +2,78 @@
 # Replicator Components
 #
 # -----------------------------------------------------------------------------
-# Supplier
-supplier.type: 'BINLOG'
 
-# -----------------------------------------------------------------------------
-# augmenter
-augmenter.schema.type: 'ACTIVE'
-augmenter.schema.bootstrap: false
-augmenter.schema.active.mysql.hostname: 'mysql'
-augmenter.schema.active.mysql.schema: 'test_active_schema'
-augmenter.schema.active.mysql.username: 'root'
-augmenter.schema.active.mysql.password: 'mysqlPass'
+coordinator.type: "ZOOKEEPER"
 
-# -----------------------------------------------------------------------------
-# applier
-seeker.type: 'NONE'
-applier.type: 'HBASE'
+supplier.type: "BINLOG"
 
-# -----------------------------------------------------------------------------
-# Partitioner
-partitioner.type: 'XXID' # use xxid for HBase
+augmenter:
+  filter:
+    type: 'TABLE_MERGE_PATTERN'
+    pattern: '([_][12]\d{3}(0[1-9]|1[0-2]))'
+  schema:
+    bootstrap: false
+    type: "ACTIVE"
+    active.mysql:
+      hostname: "mysql"
+      port: "3306"
+      schema: "test_active_schema"
+      username: "root"
+      password: "mysqlPass"
+  context:
+    transaction.buffer.limit : 2000000000
+    exclude.table:
+    - heartbeat
+    - pseudo_gtid_status
 
-# -----------------------------------------------------------------------------
-# Checkpoint
-checkpoint.applier.type: 'COORDINATOR'
-coordinator.type: 'ZOOKEEPER'
-checkpoint.path: '/hbase/replicator/test/checkpoint'
+seeker.type: "NONE"
+partitioner.type: "TRID"
+applier.type: "HBASE"
 
+checkpoint:
+  applier.type: "COORDINATOR"
+  path: "/replicator/test/checkpoint"
 
-###############################################################################
-# External Services
-#
-# -----------------------------------------------------------------------------
-# Zookeeper
+webserver.type: "NONE"
+
+metrics.applier:
+  type: "GRAPHITE"
+  graphite.namespace: "general.replicator_test"
+  graphite.hostname: 'localhost'
+  graphite.port: 3002
+
+replicator:
+  tasks: 50
+  threads: 50
+  queue:
+    size: 1000
+    timeout: 300
+
 zookeeper:
-  leadership.path: '/hbase/replicator/test/leadership'
-  connection.string: 'zookeeper:2181'
+  connection.string:
+  - "zookeeper:2181"
+  leadership.path: "/replicator/test/leadership"
 
-# -----------------------------------------------------------------------------
-# Kafka
-kafka:
-  bootstrap.servers: 'kafka:9092'
-  group.id: 'replicator_test'
-  topic: 'replicator_test_kafka'
-
-# -----------------------------------------------------------------------------
-# mysql
 mysql:
-  hostname: 'mysql'
-  port: 3306
-  schema: 'test'
+  hostname: "mysql"
   username: 'root'
   password: 'mysqlPass'
+  port: 3306
+  schema: "test"
 
-##############################
-# hbase applier
-applier.hbase.zookeeper.quorum: 'hbase:2181'
-applier.hbase.sourcedb.name: 'test'
-applier.hbase.destination.namespace: 'replicator_test'
-applier.hbase.schema.history.namespace: 'schema_history'
-applier.hbase.initial.snapshot: false
-applier.hbase.snappy: false
-applier.hbase.dryrun: false
-applier.hbase.payload.table.name: 'db_context_log'
-applier.hbase.storage.type: "HBASE"
-
-#############################
-# metrics
-metrics.applier.graphite.namespace: 'replicator'
-metrics.applier.graphite.hostname: 'graphite'
-metrics.applier.graphite.port: 2003
-metrics.applier.type: 'GRAPHITE'
+applier.hbase:
+  sourcedb.name: 'test'
+  destination.namespace: ''
+  schema.history.namespace: ''
+  snappy: false
+  payload.table.name: 'db_context_log'
+  zookeeper.quorum: 'zookeeper'
+  dryrun: false
+  storage.type: 'HBASE'
+  initial.snapshot: false
+#applier.bigtable:
+#  project.id: '---'
+#  instance.id: '---'
 
 override:
   checkpoint:
