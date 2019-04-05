@@ -2,11 +2,8 @@
 # Replicator Components
 #
 # -----------------------------------------------------------------------------
-
 coordinator.type: "ZOOKEEPER"
-
 supplier.type: "BINLOG"
-
 augmenter:
   filter:
     type: 'TABLE_MERGE_PATTERN'
@@ -43,8 +40,8 @@ metrics.applier:
   graphite.port: 3002
 
 replicator:
-  tasks: 50
-  threads: 50
+  tasks: 2
+  threads: 2
   queue:
     size: 1000
     timeout: 300
@@ -67,13 +64,10 @@ applier.hbase:
   schema.history.namespace: ''
   snappy: false
   payload.table.name: 'db_context_log'
-  zookeeper.quorum: 'zookeeper'
+  zookeeper.quorum: 'hbase'
   dryrun: false
   storage.type: 'HBASE'
   initial.snapshot: false
-#applier.bigtable:
-#  project.id: '---'
-#  instance.id: '---'
 
 override:
   checkpoint:
