@@ -36,8 +36,8 @@ webserver.type: "NONE"
 metrics.applier:
   type: "GRAPHITE"
   graphite.namespace: "general.replicator_test"
-  graphite.hostname: 'localhost'
-  graphite.port: 3002
+  graphite.hostname: 'graphite'
+  graphite.port: 2003
 
 replicator:
   tasks: 2

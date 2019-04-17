@@ -1,10 +1,12 @@
-version: '3'
+version: '2.4'
 
 services:
   replicator:
     image: "replicator-runner"
     ports:
         - "5005:5005"
+    mem_limit: 6G
+    mem_reservation: 4G
   mysql:
     image: "mysql:5.7.21"
     environment:
@@ -25,4 +27,8 @@ services:
     image: "hopsoft/graphite-statsd"
     ports:
         - "80:80"
+        - "81:81"
         - "8125:8125"
+    expose:
+        - "2003"
+
