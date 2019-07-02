@@ -1,0 +1,35 @@
+version: '2.2'
+
+services:
+  replicator:
+    image: "replicator-runner"
+    ports:
+        - "5005:5005"
+    mem_limit: 6G
+    mem_reservation: 4G
+  mysql:
+    image: "mysql:5.7.21"
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysqlPass"
+    volumes:
+      - "./resources/my.cnf:/etc/mysql/conf.d/my.cnf:ro"
+      - "./resources/mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
+  zookeeper:
+    image: "zookeeper"
+  kafka:
+    image: "wurstmeister/kafka"
+    ports:
+        - 9092:9092
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_HOST_NAME: "kafka"
+      KAFKA_CREATE_TOPICS: "replicator_test_kafka:5:1,replicator_validation:1:1"
+  graphite:
+    image: "hopsoft/graphite-statsd"
+    ports:
+        - "80:80"
+        - "81:81"
+        - "8125:8125"
+    expose:
+        - "2003"
+

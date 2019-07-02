@@ -30,15 +30,19 @@ ADD ./input/replicator/mysql-replicator-0.16.0-rc1-SNAPSHOT-distribution.zip /re
 ADD ./input/replicator/log4j.properties                /replicator/log4j.properties
 
 # Config 0.16
-ADD ./input/replicator/replicator-conf-v016.yaml       /replicator/replicator-conf-v016.yaml
+ADD ./input/replicator/replicator-conf-hbase-v016.yaml       /replicator/replicator-conf-hbase-v016.yaml
+ADD ./input/replicator/replicator-conf-kafka-v016.yaml       /replicator/replicator-conf-kafka-v016.yaml
+ADD ./input/replicator/replicator-conf-console-v016.yaml       /replicator/replicator-conf-console-v016.yaml
 
 # Replicator util scripts
-ADD ./input/replicator/run_016                         /replicator/bin/run_016
+ADD ./input/replicator/run_hbase_016                  /replicator/bin/run_hbase_016
+ADD ./input/replicator/run_kafka_016                         /replicator/bin/run_kafka_016
 
 # More util scripts
 ADD ./input/replicator/00_setup                        /replicator/00_setup
 ADD ./input/replicator/01_seed                         /replicator/01_seed_mysql
-ADD ./input/replicator/02_run_016                      /replicator/02_run_016
+ADD ./input/replicator/02_run_hbase_016                      /replicator/02_run_hbase_016
+ADD ./input/replicator/02_run_kafka_016                      /replicator/02_run_kafka_016
 ADD ./input/replicator/03_read_kafka                   /replicator/03_read_kafka
 
 # MySQL init scripts

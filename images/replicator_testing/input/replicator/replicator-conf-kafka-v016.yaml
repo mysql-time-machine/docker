@@ -1,0 +1,79 @@
+###############################################################################
+# Replicator Components
+#
+# -----------------------------------------------------------------------------
+coordinator.type: "ZOOKEEPER"
+supplier.type: "BINLOG"
+augmenter:
+  filter:
+    type: 'TABLE_MERGE_PATTERN'
+    pattern: '([_][12]\d{3}(0[1-9]|1[0-2]))'
+  schema:
+    bootstrap: false
+    type: "ACTIVE"
+    active.mysql:
+      hostname: "mysql"
+      port: "3306"
+      schema: "test_active_schema"
+      username: "root"
+      password: "mysqlPass"
+  context:
+    transaction.buffer.limit : 2000000000
+    exclude.table:
+    - heartbeat
+    - pseudo_gtid_status
+
+seeker.type: "NONE"
+partitioner.type: "TABLE_NAME"
+applier.type: "KAFKA"
+
+kafka:
+  consumer:
+    auto.offset.reset: "earliest"
+    bootstrap.servers: "kafka:9092"
+    group.id: "replicator_test_bp1"
+  producer:
+    bootstrap.servers: "kafka:9092"
+    batch.size: 100
+    linger.ms: 10
+  topic: "replicator_test_kafka"
+  message.format: "json"
+
+
+checkpoint:
+  applier.type: "COORDINATOR"
+  path: "/replicator/test/checkpoint"
+
+webserver.type: "NONE"
+
+metrics.applier:
+  type: "GRAPHITE"
+  graphite.namespace: "general.replicator_test"
+  graphite.hostname: 'graphite'
+  graphite.port: 2003
+
+replicator:
+  tasks: 2
+  threads: 2
+  queue:
+    size: 1000
+    timeout: 300
+
+zookeeper:
+  connection.string:
+  - "zookeeper:2181"
+  leadership.path: "/replicator/test/leadership"
+
+mysql:
+  hostname: "mysql"
+  username: 'root'
+  password: 'mysqlPass'
+  port: 3306
+  schema: "test"
+
+override:
+  checkpoint:
+    start.position: true
+    binLog:
+        filename: binlog.000001
+        position: 4

@@ -1,1 +1,1 @@
-./util/kafka/read_kafka
+./util/kafka/read_kafka --out value

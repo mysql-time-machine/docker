@@ -11,7 +11,7 @@ KAFKA_TOPIC = "replicator_test_kafka"
 @click.option('--out', help='Output format: [value, key-value, meta, detailed]')
 def run(out):
     consumer = KafkaConsumer(KAFKA_TOPIC,
-                             bootstrap_servers='kafka:9092',
+                             bootstrap_servers='kafka:9092', # metadata_broker_list for older version
                              auto_offset_reset='smallest')
     format='detailed'
 
