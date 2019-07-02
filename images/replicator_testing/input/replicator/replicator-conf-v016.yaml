@@ -24,8 +24,21 @@ augmenter:
     - pseudo_gtid_status
 
 seeker.type: "NONE"
-partitioner.type: "TRID"
-applier.type: "HBASE"
+partitioner.type: "TABLE_NAME"
+applier.type: "KAFKA"
+
+kafka:
+  consumer:
+    auto.offset.reset: "earliest"
+    bootstrap.servers: "localhost"
+    group.id: "replicator_test_bp1"
+  producer:
+    bootstrap.servers: "localhost"
+    batch.size: 100
+    linger.ms: 10
+  topic: "replicator_test_kafka"
+  message.format: "json"
+
 
 checkpoint:
   applier.type: "COORDINATOR"
