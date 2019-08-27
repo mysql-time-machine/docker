@@ -38,7 +38,9 @@ kafka:
     linger.ms: 10
   topic: "replicator_test_kafka"
   message.format: "json"
-
+# output.columns.include:
+#   - dataType
+#   - valueDefault
 
 checkpoint:
   applier.type: "COORDINATOR"
