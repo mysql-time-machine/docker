@@ -1,0 +1,78 @@
+###############################################################################
+# Replicator Components
+#
+# -----------------------------------------------------------------------------
+coordinator.type: "ZOOKEEPER"
+supplier.type: "BINLOG"
+augmenter:
+  filter:
+    type: 'TABLE_MERGE_PATTERN'
+    pattern: '([_][12]\d{3}(0[1-9]|1[0-2]))'
+  schema:
+    bootstrap: false
+    type: "ACTIVE"
+    active.mysql:
+      hostname: "localhost"
+      port: "3300"
+      schema: "test_active_schema"
+      username: "root"
+      password: "mysqlPass"
+  context:
+    transaction.buffer.limit : 2000000000
+    exclude.table:
+    - heartbeat
+    - pseudo_gtid_status
+
+seeker.type: "NONE"
+partitioner.type: "TABLE_NAME"
+applier.type: "HBASE"
+
+applier.hbase:
+  sourcedb.name: 'test'
+  destination.namespace: ''
+  schema.history.namespace: ''
+  snappy: false
+  payload.table.name: 'db_context_log'
+  zookeeper.quorum: 'localhost'
+  dryrun: false
+  storage.type: 'HBASE'
+  initial.snapshot: false
+  buffer.time.limit: 1
+
+checkpoint:
+  applier.type: "COORDINATOR"
+  path: "/replicator/test/checkpoint"
+
+webserver.type: "NONE"
+
+metrics.applier:
+  type: "GRAPHITE"
+  graphite.namespace: "general.replicator_test"
+  graphite.hostname: 'localhost'
+  graphite.port: 2003
+
+replicator:
+  tasks: 2
+  threads: 2
+  queue:
+    size: 1000
+    timeout: 300
+
+zookeeper:
+  connection.string:
+  - "localhost:2181"
+  leadership.path: "/replicator/test/leadership"
+
+mysql:
+  hostname: "localhost"
+  username: 'root'
+  password: 'mysqlPass'
+  port: 3300
+  schema: "test"
+
+override:
+  checkpoint:
+    start.position: true
+    binLog:
+        filename: binlog.000004
+        position: 4

@@ -10,18 +10,18 @@ services:
       - "./resources/mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
     ports:
         - "3300:3306"  
-  zookeeper:
-    image: "zookeeper"
-    ports:
-        - "2181:2181"  
-  kafka:
-    image: "wurstmeister/kafka"
-    environment:
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_ADVERTISED_HOST_NAME: "localhost"
-      KAFKA_CREATE_TOPICS: "replicator_test_kafka:5:1,replicator_validation:1:1"
-    ports:
-        - "9092:9092"  
+#  zookeeper:
+#    image: "zookeeper"
+#    ports:
+#        - "2181:2181"  
+  hbase:
+    image: "harisekhon/hbase-dev:1.3"
+    hostname: "HBASE_HOST"
+    container_name: "HBASE_CONTAINER"
+    ports: 
+        - "2181:2181"
+        - "16000:16000"
+        - "16201:16201"
   graphite:
     image: "hopsoft/graphite-statsd"
     ports:
