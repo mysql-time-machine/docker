@@ -29,7 +29,7 @@ RUN apt-get update
 RUN apt-get install -y python-pip
 
 
-ADD ./input/replicator/mysql-replicator-0.16.0-rc1-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-rc1-SNAPSHOT-distribution.zip
+ADD ./input/replicator/mysql-replicator-0.16.0-rc2-SNAPSHOT-distribution.zip /replicator/mysql-replicator-0.16.0-rc2-SNAPSHOT-distribution.zip
 
 # Logging
 ADD ./input/replicator/log4j.properties                /replicator/log4j.properties
