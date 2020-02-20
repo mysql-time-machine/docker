@@ -2,12 +2,9 @@ version: '2.2'
 
 services:
   mysql:
-    image: "mysql:5.7.21"
+    image: "repl-mysql:1"
     environment:
       MYSQL_ROOT_PASSWORD: "mysqlPass"
-    volumes:
-      - "./resources/my.cnf:/etc/mysql/conf.d/my.cnf:ro"
-      - "./resources/mysql_init_dbs.sh:/docker-entrypoint-initdb.d/mysql_init_dbs.sh:ro"
     ports:
         - "3300:3306"  
   zookeeper:

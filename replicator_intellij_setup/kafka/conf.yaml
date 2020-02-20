@@ -4,6 +4,8 @@
 # -----------------------------------------------------------------------------
 coordinator.type: "ZOOKEEPER"
 supplier.type: "BINLOG"
+supplier.binlog.fallback.gtid.purged: true
+
 augmenter:
   filter:
     type: 'TABLE_MERGE_PATTERN'
@@ -19,6 +21,8 @@ augmenter:
       password: "mysqlPass"
   context:
     transaction.buffer.limit : 2000000000
+    include.table:
+    - test1
     exclude.table:
     - heartbeat
     - pseudo_gtid_status
@@ -75,7 +79,7 @@ mysql:
 
 override:
   checkpoint:
-    start.position: true
+    start.position: false
     binLog:
         filename: binlog.000004
         position: 4
